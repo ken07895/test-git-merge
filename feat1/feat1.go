@@ -1,5 +1,7 @@
 package feat1
 
+import "fmt"
+
 func createIndirectGraphByEdges(edges [][2]int) map[int][]int {
 	graph := map[int][]int{}
 	for _, edge := range edges {
@@ -12,5 +14,6 @@ func createIndirectGraphByEdges(edges [][2]int) map[int][]int {
 		graph[edge[0]] = append(graph[edge[0]], edge[1])
 		graph[edge[1]] = append(graph[edge[1]], edge[0])
 	}
+	fmt.Println(graph)
 	return graph
 }
