@@ -29,7 +29,7 @@ func dfs(current int, graph map[int][]int, visited map[int]bool) {
 }
 
 func bfs(current int, graph map[int][]int, visited map[int]bool) {
-
+	fmt.Println("eieiza")
 	queue := []int{current}
 	for len(queue) > 0 {
 		item := queue[0]
