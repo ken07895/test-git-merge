@@ -27,3 +27,19 @@ func dfs(current int, graph map[int][]int, visited map[int]bool) {
 		dfs(adj, graph, visited)
 	}
 }
+
+func bfs(current int, graph map[int][]int, visited map[int]bool) {
+
+	queue := []int{current}
+	for len(queue) > 0 {
+		item := queue[0]
+		visited[item] = true
+		queue := queue[1:]
+		for _, adj := range graph[item] {
+			if visited[adj] {
+				continue
+			}
+			queue = append(queue, adj)
+		}
+	}
+}
