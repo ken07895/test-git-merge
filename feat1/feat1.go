@@ -4,6 +4,7 @@ import "fmt"
 
 func createIndirectGraphByEdges(edges [][2]int) map[int][]int {
 	graph := map[int][]int{}
+	fmt.Println("test")
 	for _, edge := range edges {
 		if _, ok := graph[edge[0]]; !ok {
 			graph[edge[0]] = []int{}
