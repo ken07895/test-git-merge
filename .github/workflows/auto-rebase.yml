@@ -9,20 +9,24 @@ jobs:
     steps:
       - name: Checkout code
         uses: actions/checkout@v2
-      - name: Run script
+      - name: Fetch all branches
+        run: git fetch --all
+      - name: Get branch names
+        id: branch-names
         run: |
-          echo "test"
+          branch_names=$(git branch -r --format='%(refname:short)' | sed 's/origin\///g')
+          echo "::set-output name=branches::$branch_names"
       - name: Merge to Master
         if: github.event.pull_request.merged == true && github.event.pull_request.base.ref == 'master'
         run: |
-          # Your post-merge actions go here
           echo "START git action auto rebase"
-          for target_branch in $(git for-each-ref --format='%(refname:short)' refs/heads/); do
+          for target_branch in $(git branch -r --format='%(refname:short)' | sed 's/origin\///g'); do
             echo $target_branch
-            if [ "$target_branch" != "master" ]; then
-              git checkout $target_branch
-              # if ! git merge --no-ff master ; then
+            if [ "$target_branch" != "master" ] && [ "$target_branch" != "HEAD" ]; then
+              git checkout -B $target_branch origin/$target_branch
+              # if git merge --no-ff master ; then
               if git rebase master; then
+                git push origin/$target_branch
                 echo "Rebase successful: $target_branch"
               else
                 echo "Conflict occurred: $target_branch"
