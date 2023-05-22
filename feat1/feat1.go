@@ -14,3 +14,13 @@ func createIndirectGraphByEdges(edges [][2]int) map[int][]int {
 	}
 	return graph
 }
+
+func dfs(current int, graph map[int][]int, visited map[int]bool) {
+	if visited[current] {
+		return
+	}
+	visited[current] = true
+	for _, adj := range graph[current] {
+		dfs(adj, graph, visited)
+	}
+}
