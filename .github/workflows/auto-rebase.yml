@@ -21,6 +21,7 @@ jobs:
           git pull --all
           git checkout master
           echo $(git branch -r)
+          echo $(git branch --list)
           echo $(git for-each-ref --format='%(refname:short)' refs/heads/)
           for target_branch in $(git branch --list); do
             echo $target_branch
