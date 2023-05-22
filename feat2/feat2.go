@@ -1,5 +1,7 @@
 package feat2
 
+import "fmt"
+
 func mergeSort(arr []int) []int {
 	if len(arr) == 1 {
 		return arr
@@ -34,5 +36,6 @@ func merge(arr1 []int, arr2 []int) []int {
 		idx_arr2++
 		idx_result++
 	}
+	fmt.Println(result)
 	return result
 }
