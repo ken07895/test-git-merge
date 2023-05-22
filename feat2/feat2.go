@@ -37,5 +37,6 @@ func merge(arr1 []int, arr2 []int) []int {
 		idx_arr2++
 		idx_result++
 	}
+	fmt.Println(result)
 	return result
 }
