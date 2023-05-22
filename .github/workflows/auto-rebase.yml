@@ -20,6 +20,8 @@ jobs:
         if: github.event.pull_request.merged == true && github.event.pull_request.base.ref == 'master'
         run: |
           echo "START git action auto rebase"
+          git config user.name "GitHub Actions Bot"
+          git config user.email "<>"
           for target_branch in $(git branch -r --format='%(refname:short)' | sed 's/origin\///g'); do
             echo $target_branch
             if [ "$target_branch" != "master" ] && [ "$target_branch" != "HEAD" ]; then
