@@ -9,8 +9,14 @@ jobs:
     steps:
       - name: Checkout code
         uses: actions/checkout@v2
+      - name: Set credential
+        run: |
+          git config user.name "GitHub Actions Bot"
+          git config user.email "<>"
       - name: Fetch all branches
         run: git fetch --all
+      - name: Pull all branches
+        run: git pull --all
       - name: Get branch names
         id: branch-names
         run: |
@@ -20,8 +26,6 @@ jobs:
         if: github.event.pull_request.merged == true && github.event.pull_request.base.ref == 'master'
         run: |
           echo "START git action auto rebase"
-          git config user.name "GitHub Actions Bot"
-          git config user.email "<>"
           for target_branch in $(git branch -r --format='%(refname:short)' | sed 's/origin\///g'); do
             echo $target_branch
             if [ "$target_branch" != "master" ] && [ "$target_branch" != "HEAD" ]; then
