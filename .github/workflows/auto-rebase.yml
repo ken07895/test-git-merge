@@ -18,6 +18,7 @@ jobs:
           # Your post-merge actions go here
           echo "post merge"
           git checkout master
+          echo $(git for-each-ref --format='%(refname:short)' refs/heads/)
           for target_branch in $(git for-each-ref --format='%(refname:short)' refs/heads/); do
             echo $target_branch
             if [ "$target_branch" != "master" ] && [ "$target_branch" != "$current_branch" ]; then
