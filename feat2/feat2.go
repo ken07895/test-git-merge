@@ -8,6 +8,7 @@ func mergeSort(arr []int) []int {
 	}
 	leftSorted := mergeSort(arr[:len(arr)/2])
 	rightSorted := mergeSort(arr[len(arr)/2:])
+	fmt.Println("eieiza")
 	fmt.Println("lnwza007")
 	return merge(leftSorted, rightSorted)
 }
