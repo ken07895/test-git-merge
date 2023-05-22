@@ -1,11 +1,14 @@
 package feat2
 
+import "fmt"
+
 func mergeSort(arr []int) []int {
 	if len(arr) == 1 {
 		return arr
 	}
 	leftSorted := mergeSort(arr[:len(arr)/2])
 	rightSorted := mergeSort(arr[len(arr)/2:])
+	fmt.Println("lnwza007")
 	return merge(leftSorted, rightSorted)
 }
 
