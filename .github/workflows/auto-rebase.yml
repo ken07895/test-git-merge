@@ -1,0 +1,34 @@
+name: Merge to Master
+on:
+  pull_request:
+    types:
+      - closed
+jobs:
+  merge-to-master:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+      - name: Run script
+        run: |
+          echo "test"
+      - name: Merge to Master
+        if: github.event.pull_request.merged == true && github.event.pull_request.base.ref == 'master'
+        run: |
+          # Your post-merge actions go here
+          echo "post merge"
+          git checkout master
+          for target_branch in $(git for-each-ref --format='%(refname:short)' refs/heads/); do
+            echo $target_branch
+            if [ "$target_branch" != "master" ] && [ "$target_branch" != "$current_branch" ]; then
+              git checkout $target_branch
+              # if ! git merge --no-ff master ; then
+              if git rebase master; then
+                echo "Rebase successful: $target_branch"
+              else
+                echo "Conflict occurred: $target_branch"
+                git rebase --abort
+                git reset --hard HEAD
+              fi
+            fi
+          done
